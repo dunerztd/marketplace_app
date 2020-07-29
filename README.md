@@ -1,10 +1,8 @@
-*** CLEARLY define what you want to achieve and FOCUS on that and ONLY that ***
+# T2A2 - Marketplace App
 
-# T2A2 Marketplace App
+**Github:** https://github.com/dunerztd/marketplace_app
 
-
-Github link: http   
-Heroku link: http
+**Heroku:** http:
 
 ---
 
@@ -79,69 +77,86 @@ The target audience for this marketplace is students wanting to learn the guitar
 
 ---
 
+## Planning
+
+I'll be using Trello to plan and track all my tasks. All tasks will be split up into different lists such as documentation, requirements etc to begin with. Once I start coding I'll add lists such tables, models, controllers, validations etc. All mandatory tasks as per the assignment outline are marked 'must do' and coloured red. Tasks I'm currently working are placed in the 'In Progress' list. Once finished they are moved to the 'Completed' list.
+
+#### Plan Outline:
+
+- Decide on app idea out of two competing ideas.
+- Sketch out thoughts/ideas to get started.
+- Test out the ideas I'm most keen on first to see if they were possible depending on time and skill level.
+- Create rough idea of how users would navigate through the app (user stories to help with this), what each page will look like, what happens when a user clicks this or that button etc.
+- Solidify this by creating the Wireframes and ERD.
+- Finish all documentation (as much as possible) before start coding.
+- This will leave roughly two weeks to complete the coding.
+- Minimum Viable Product with minimal front-end is the coding aim. If time permits add extra functionality and/or improve front-end.
+
+---
+
 ## Wireframes
 
 ### Home
 
 Full Size  |  Mobile
 ---------  |  --------
-![](./docs/wireframes/home.png) | ![](./docs/wireframes/home_mobile.png)
+![](./docs/wireframes/Home.png) | ![](./docs/wireframes/Home_Mobile.png)
 
 
 ### Show
 
 Full Size  |  Mobile
 ---------  |  --------
-![](./docs/wireframes/show.png) | ![](./docs/wireframes/show_mobile.png)
+![](./docs/wireframes/Show.png) | ![](./docs/wireframes/Show_mobile.png)
 
 
 ### Login
 
 Full Size  |  Mobile
 ---------  |  --------
-![](./docs/wireframes/login.png) | ![](./docs/wireframes/login_mobile.png)
+![](./docs/wireframes/Login.png) | ![](./docs/wireframes/Login_mobile.png)
 
 ### Sign Up
 
 Full Size  |  Mobile
 ---------  |  --------
-![](./docs/wireframes/sign_up.png) | ![](./docs/wireframes/sign_up_mobile.png)
+![](./docs/wireframes/Sign_up.png) | ![](./docs/wireframes/Sign_up_mobile.png)
 
 ### Student Navbar
 
 Full Size  |  Mobile
 ---------  |  --------
-![](./docs/wireframes/student_navbar.png) | ![](./docs/wireframes/student_navbar_mobile.png)
+![](./docs/wireframes/Student_Navbar.png) | ![](./docs/wireframes/Student_Navbar_Mobile.png)
 
 ### Student Page
 
 Full Size  |  Mobile
 ---------  |  --------
-![](./docs/wireframes/student_page.png) | ![](./docs/wireframes/student_page_mobile.png)
+![](./docs/wireframes/Student_page.png) | ![](./docs/wireframes/Student_page_mobile.png)
 
 ### Student Show
 
 Full Size  |  Mobile
 ---------  |  --------
-![](./docs/wireframes/student_show.png) | ![](./docs/wireframes/student_show_mobile.png)
+![](./docs/wireframes/Student_show.png) | ![](./docs/wireframes/Student_show_mobile.png)
 
 ### Teacher Navbar
 
 Full Size  |  Mobile
 ---------  |  --------
-![](./docs/wireframes/teacher_navbar.png) | ![](./docs/wireframes/teacher_navbar_mobile.png)
+![](./docs/wireframes/Teacher_Navbar.png) | ![](./docs/wireframes/Teacher_Navbar_Mobile.png)
 
 ### Teacher Page
 
 Full Size  |  Mobile
 ---------  |  --------
-![](./docs/wireframes/teacher_page.png) | ![](./docs/wireframes/teacher_page_mobile.png)
+![](./docs/wireframes/Teacher_page.png) | ![](./docs/wireframes/Teacher_page_mobile.png)
 
 ### Teacher Profile Form
 
 Full Size  |  Mobile
 ---------  |  --------
-![](./docs/wireframes/teacher_profile_form.png) | ![](./docs/wireframes/teacher_profile_form_mobile.png)
+![](./docs/wireframes/Teacher_profile_form.png) | ![](./docs/wireframes/Teacher_profile_form_mobile.png)
 
 ---
 
@@ -154,7 +169,7 @@ Full Size  |  Mobile
 ## High Level Components
 (Precisely explains and shows understanding of the different high-level components of the app)
 
-Guest
+#### Guest
 
 - can search profiles my filtering them according style. achieve my clicking a range tick boxes. it lists all teacher profiles
 - these profile can be filtered further by clicking 'speciality only' at the top of the home page. it only lists profiles, by style, a teacher has selected as their speciality, being the style they the most experienced and knowledgeable in.
@@ -162,7 +177,7 @@ Guest
 - doesn't have a an account
 - can't purchase a lesson
 
-Student
+#### Student
 
 in addition to what a guest can do a student can do the following:
 - must sign up for an account and login.
@@ -170,14 +185,14 @@ in addition to what a guest can do a student can do the following:
 - has a student view, selected from the drop-down menu. The student can view all the lesson they have paid for
 - has the ability to be a teacher with the same account by selecting 'become a teacher' from the drop down menu.
 
-Teacher
+#### Teacher
 
 in addition to what a student can do, a teacher can also do the following:
 - create a teacher profile which includes selecting their teaching styles and style speciality. they can also add a profile image.
 - has access to a 'teacher' page which displays upcoming teaching lessons and links to view and edit their profile.
 
 
-Booking
+#### Booking
 
 - a booking is made when a student purchases a lesson from a teacher profile.
 - the user pays through the online payment system Stripe.
@@ -186,18 +201,15 @@ Booking
 ---
 
 ## Model Relationships
-## Describe your projects models in terms of the relationships (active record associations) they have with each other
-(Complete discussion of the project’s models with an understanding of how its active record associations function)
 
-
-User:
+#### User:
 - has_one Teacher, a Teacher belongs_to a User
 - has_many Bookings, a Booking belongs_to a User
 
 In addition to these associations, a User can have one Teacher who can have many Styles, many Bookings and one Image.
 Through Users association with Booking, Users can have many Bookings who can have a Teacher who has many Styles and one Image.
 
-Teacher:
+#### Teacher:
 - belongs_to User, a User has_one Teacher
 - has_many Bookings, a Booking belongs_to a Teacher
 - has_many Styles, a Style belongs_to a Teacher
@@ -205,13 +217,13 @@ Teacher:
 
 In addition to these associations, A Teacher has one User who has many Bookings and a Teacher has many Bookings who has one User.
 
-Booking:
+#### Booking:
 - belongs_to a User, a User has_many Bookings
 - belongs_to a Teacher, a Teacher has_many Bookings
 
 The Booking associations of being between the User and Teacher models is an important one to the app. It allows a single user account to be both a Teacher and Student. Through Bookings we can find out information on the student through the User association. But also through the Teacher association, we can find information on the User associated with the teacher profile.
 
-Style:
+#### Style:
 - belongs_to a Teacher, a Teacher has_many Styles
 
 Through the Style models association with the Teacher model, a Style can have one Teacher who has one User and a Style can have one Teacher who has many Bookings who has one User. A Style can have one Teacher who has one Image.
@@ -222,29 +234,27 @@ Through the Style models association with the Teacher model, a Style can have on
 (Discuss the database relations to be implemented)
 (Provides coherent discussion of the database relations, with reference to the ERD)
 
+#### Users:
+The users table contains the attributes id, fullname, email, admin, encrypted_password, reset_password_token, reset_password_set_at, remember_created_at as can be seen in the ERD. 'fullname' and 'email' attributes help with identifying the user. The boolean 'admin' if true, gives the uses access to everything in the app. The other attributes along with 'email' are used in the Devise gem.
+
+#### Bookings:
+The Bookings table contains the attributes id, teacher_id and user_id as seen in the ERD. The teacher_id and user_id are foreign keys of the Teachers and Users table respectively. This allows the Bookings table to be effectively a join table by giving access to the Users table but also the Users table through the Teachers table.
+
+#### Teachers:
+The teachers table contains the attributes id, availability, price, lesson_length, bio, teaching_info, style_id, user_id as seen in the ERD. Style_id and user_id are foreign keys of the the Style and User tables respectively. Even though its a one-to-one relationship between the User and Teacher tables, Teacher belongs_to User in reality. The remaining attributes are used in the creation of a teacher profile.
+
+#### Styles:
+The Styles table contains the attributes id, name, speciality and teacher_id as seen in the ERD. All the music styles are listed by 'name'. The 'speciality' boolean attribute marks one style per profile 'true' which helps with filtering profiles by speciality. This helps with normalisation as a separate table purely for speciality styles is not needed. Teacher_id is the foreign key for the one-to-many relationship with the Teacher table.
+
+
+#### Active_storage_attachments and Active_storage_blobs:
+All the attributes of these two tables are for adding an image to the teacher profile and are automatically generated my Active Storage.
+
 ---
 
 ## Database Schema
 
----
 
-## Planning
-
-- using trello
-- came up with 2 main ideas for the app. went with guitar lesson app.
-- sketching out thoughts/ideas to start
-- tested a few ideas out first to see if they were possible. Figured out how to apply a javascript drop down menu with Bootstrap pretty quickly. Did a lot of research in scheduling/appointments. Looked at gems and videos on how to do this. Came up with an OK solution of how to accomplish it.
-- creating rough idea of how a guest/student/teacher would navigate through the app (user stories to help with this)
-- created wireframes then ERD.
-- decided against scheduling/appointments as this seen as an extra function and the user can just buy lesson 'blocks'. The actual lesson time can be figured out between the student and teacher.
-- - Minimum Viable Product with minimal front-end as coding aim. If time permits add extra functionality and/or improve front-end.
-- Finish all documentation (as much as possible) before start coding.
-- have roughly 2 weeks to complete the coding.
-
-- in trello
-- first listed all mandatory tasks as per assignment outline (requirements/rubric)
-- focused on finishing all the documentation tasks first.
-- Will add all coding tasks once documentation tasks completed.
 
 ---
 
