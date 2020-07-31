@@ -171,8 +171,7 @@ Full Size  |  Mobile
 
 #### Guest
 
-- can search profiles my filtering them according style. achieve my clicking a range tick boxes. it lists all teacher profiles
-- these profile can be filtered further by clicking 'speciality only' at the top of the home page. it only lists profiles, by style, a teacher has selected as their speciality, being the style they the most experienced and knowledgeable in.
+
 - can look at individual profiles
 - doesn't have a an account
 - can't purchase a lesson
@@ -190,6 +189,8 @@ in addition to what a guest can do a student can do the following:
 in addition to what a student can do, a teacher can also do the following:
 - create a teacher profile which includes selecting their teaching styles and style speciality. they can also add a profile image.
 - has access to a 'teacher' page which displays upcoming teaching lessons and links to view and edit their profile.
+- can search profiles my filtering them according style. achieve my clicking a range tick boxes. it lists all teacher profiles
+- these profile can be filtered further by clicking 'speciality only' at the top of the home page. it only lists profiles, by style, a teacher has selected as their speciality, being the style they the most experienced and knowledgeable in.
 
 
 #### Booking
@@ -197,6 +198,7 @@ in addition to what a student can do, a teacher can also do the following:
 - a booking is made when a student purchases a lesson from a teacher profile.
 - the user pays through the online payment system Stripe.
 - The booking shows up in the both student and teacher views. The views contain basic booking information about the respective parties.
+- must be logged in
 
 ---
 
@@ -231,8 +233,6 @@ Through the Style models association with the Teacher model, a Style can have on
 ---
 
 ## Database Relations
-(Discuss the database relations to be implemented)
-(Provides coherent discussion of the database relations, with reference to the ERD)
 
 #### Users:
 The users table contains the attributes id, fullname, email, admin, encrypted_password, reset_password_token, reset_password_set_at, remember_created_at as can be seen in the ERD. 'fullname' and 'email' attributes help with identifying the user. The boolean 'admin' if true, gives the uses access to everything in the app. The other attributes along with 'email' are used in the Devise gem.
