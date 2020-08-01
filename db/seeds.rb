@@ -45,7 +45,7 @@ puts "Deleting all Users"
 end
 
 # Bookings table data
-10.times do |i|
+20.times do |i|
   booking = Booking.create(
     user_id: rand(1..20),
     teacher_id: rand(1..20)

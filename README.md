@@ -262,7 +262,7 @@ All the attributes of these two tables are for adding an image to the teacher pr
 
 **Bootstrap:** Front-end framework for HTML, CSS and Javascript. Design templates for layouts, buttons, forms and other components.
 
-**jQuery:** Javascript library used by Bootstrap.
+**jQuery-rails:** Javascript library used by Bootstrap.
 
 **PopperJS:** Javascript library positioning engine used by Bootstrap. Will be used for the drop-down menu.
 
