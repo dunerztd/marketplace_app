@@ -9,20 +9,19 @@
 
       <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 
-      <%# Show navbar items when user is logged-in %>
+      <%# USE for Teacher Menu %>
+      <%# <% if user_signed_in? && current_user.teacher %>
+
       <% if user_signed_in? %>
-        <div class="navbar-nav">
-          <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "nav-item nav-link mx-3" %>
-        </div>        
+      
+      <%# Show navbar items when user is logged-in %>
+        <%= render 'shared/navbar_student' %>
+
 	    <% else %>
 
       <%# Show navbar items when user is logged out %>
-        <div class="navbar-nav">
-          <%= link_to 'Login', new_user_session_path, class: "nav-item nav-link mx-3" %>
-        </div>
-        <div class="navbar-nav">
-			    <%= link_to 'Sign Up', new_user_registration_path, class: "nav-item nav-link mx-3" %>
-        </div>
+        <%= render 'shared/navbar_guest' %>
+
       <% end %>
       </div>
     </nav>
