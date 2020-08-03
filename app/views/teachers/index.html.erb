@@ -40,20 +40,20 @@
                 </h4>
                 <p class="card-text">
 
-                  <%# <% teacher.styles.each do |style| %> 
-                    <%# <% if style.speciality == true %>
-                      <%# <b>Speciality:</b> <%= style.name<br> %>
-                    <%# <% end %>
-                  <%# <% end %>
+                  <% teacher.teachers_styles.each do |style| %> 
+                    <% if style.speciality == true %>
+                      <b>Speciality:</b> <%= style.style.name %><br>
+                    <% end %>
+                  <% end %>
 
                   <b>Other Styles:</b>
-                  <%# <% teacher.styles.each do |style| %> 
+                  <% teacher.teachers_styles.each do |style| %> 
 
-                    <%# <% if style.speciality == false %>
-                      <%# <%= style.name %>, 
-                    <%# <% end %>
+                    <% if style.speciality == false %>
+                      <%= style.style.name %>, 
+                    <% end %>
 
-                  <%# <% end %><br>
+                  <% end %><br>
                   <b>Availability:</b> <%= teacher.availability %><br>
                   <b>Bio:</b> <%= teacher.bio %>
                 </p>

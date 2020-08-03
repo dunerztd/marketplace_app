@@ -6,16 +6,16 @@
   <div class="col-sm-8">
 
     <h2><%= @teacher.user.fullname %></h2>
-    <% @teacher.styles.each do |style| %> 
+    <% @teacher.teachers_styles.each do |style| %> 
       <% if style.speciality == true %>
-        Speciality: <%= style.name %><br>
+        <b>Speciality:</b> <%= style.style.name %><br>
       <% end %>
     <% end %>
 
     <b>Other Styles:</b>
-    <% @teacher.styles.each do |style| %> 
+    <% @teacher.teachers_styles.each do |style| %> 
       <% if style.speciality == false %>
-        <%= style.name %>, 
+        <%= style.style.name %>, 
       <% end %>
     <% end %><br>
 
