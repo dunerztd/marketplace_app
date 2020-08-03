@@ -1,27 +1,26 @@
 <%# NavBar %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="/">
-        Guitar Lessons
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <%# Left-hand side of Navbar %>
+  <%= link_to 'Guitar Lessons', teachers_path, class: "navbar-brand" %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 
       <%# USE for Teacher Menu %>
       <%# <% if user_signed_in? && current_user.teacher %>
 
-      <% if user_signed_in? %>
+    <% if user_signed_in? %>
       
-      <%# Show navbar items when user is logged-in %>
-        <%= render 'shared/navbar_student' %>
+    <%# Show navbar items when user is logged-in %>
+    <%= render 'shared/navbar_student' %>
 
-	    <% else %>
+	  <% else %>
 
-      <%# Show navbar items when user is logged out %>
-        <%= render 'shared/navbar_guest' %>
+    <%# Show navbar items when user is logged out %>
+    <%= render 'shared/navbar_guest' %>
 
-      <% end %>
-      </div>
-    </nav>
+    <% end %>
+  </div>
+</nav>

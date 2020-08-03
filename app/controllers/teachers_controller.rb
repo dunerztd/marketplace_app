@@ -1,29 +1,22 @@
 class TeachersController < ApplicationController
   def index
-    # # if params
-    # then search by style id
-    # where teacher.styles.id == params[:style][:name]
-
-    # Style.find(16).teachers.all
-
-
-    # params[:style][:name].each do |style|
-    #   @teacher = Style.find(style).teachers.all
-    # end
-
-    # def find_all_teachers_with_styles(styles = [:jazz, :rock etc])
-
-    # Model.where(id: [array of values])
-
-    # # Teacher.find
-    # - Remove speciality from styles table
-    # - put speciality into join table
-
-    @teachers = Teacher.all
+    # checks whether params is defined. If so, it runs filtering method. If not, loads all teacher profiles
+    if defined? params[:style][:name]
+      @teachers = filter_teacher_profiles_by_style(params[:style][:name])
+    else
+      @teachers = Teacher.all
+    end
+    # loads all Styles for filtering form
     @style = Style.new
    
   end
 
+  # Method used for filtering Teacher profiles by style
+  def filter_teacher_profiles_by_style(styles)
+    Teacher.where(id: TeachersStyle.where(style_id: styles).map{|x| x.teacher_id}.uniq)
+  end
+
+  # Show a single profile
   def show
     @teacher = Teacher.find(params[:id])
   end
