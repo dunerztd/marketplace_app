@@ -1,0 +1,65 @@
+<div class="row">
+
+    <%# Side bar displaying all Styles %>
+    <div class="col-sm-3">
+    <h2>Styles</h2>
+
+    <%= form_with model: @style, url: teachers_path, method: :get, local: true do |form| %>
+
+      <div>
+        <%= form.collection_check_boxes :name, Style.all, :id, :name, include_hidden: false %>
+      </div>
+      <div>
+        <%= form.submit "Filter Styles" %> 
+      </div>
+
+      <% end %>
+    </div>
+
+
+    <%# Main area displaying all teacher profiles %>
+    <div class="col-sm-9">
+
+      <%# Teacher Profile cards %>
+      <% @teachers.each do |teacher| %>
+        <div class="card mb-3">
+          <div class="row no-gutters">
+
+            <%= link_to teacher_path(teacher) do %>
+            <%# Profile Image %>
+            <div class="col-md-4">
+              <img src="..." class="card-img" alt="...">
+            </div>
+            <% end %>
+
+            <%# Profile Info %>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h4 class="card-title"> 
+                  <%= teacher.user.fullname %>
+                </h4>
+                <p class="card-text">
+
+                  <% teacher.styles.each do |style| %> 
+                    <% if style.speciality == true %>
+                      <b>Speciality:</b> <%= style.name %><br>
+                    <% end %>
+                  <% end %>
+
+                  <b>Other Styles:</b>
+                  <% teacher.styles.each do |style| %> 
+
+                    <% if style.speciality == false %>
+                      <%= style.name %>, 
+                    <% end %>
+
+                  <% end %><br>
+                  <b>Availability:</b> <%= teacher.availability %><br>
+                  <b>Bio:</b> <%= teacher.bio %>
+                </p>
+              </div>
+          </div>
+        </div>
+        <% end %>
+    </div>
+</div>

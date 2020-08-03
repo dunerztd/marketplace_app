@@ -1,3 +1,4 @@
 class Style < ApplicationRecord
-  belongs_to :teacher
+  has_many :teachers_styles, dependent: :delete_all
+  has_many :teachers, through: :teachers_styles
 end

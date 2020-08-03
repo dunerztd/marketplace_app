@@ -7,6 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Deleting all data in all databases
+TeachersStyle.delete_all
+puts "Deleting Teachers Styles join table"
+
 Booking.delete_all
 puts "Deleting all Bookings"
 
@@ -37,36 +40,56 @@ puts "Deleting all Users"
     availability: avail.sample,
     price: rand(25..85),
     lesson_length: [30,60].sample,
-    bio: Faker::Lorem.paragraph(sentence_count: 3),
-    teaching_info: Faker::Lorem.paragraph(sentence_count: 3),
+    bio: Faker::Lorem.paragraph(sentence_count: 20),
+    teaching_info: Faker::Lorem.paragraph(sentence_count: 20),
     user_id: user.id
   )
   puts "#{user.fullname} Teacher profile created"
 end
 
 # Bookings table data
-20.times do |i|
+40.times do |i|
+# Creating random combinations between the teacher profiles
+    num1 = rand(1..20)
+    num2 = rand(1..20)
+    if num1 = num2
+      num1 - 1
+      if num1 = 0
+        num2 = rand(2..20)
+      end
+    end
+
   booking = Booking.create(
-    user_id: rand(1..20),
-    teacher_id: rand(1..20)
+    user_id: num1,
+    teacher_id: num2
   )
   puts "#{i+1} Booking(s) made"
 end
 
 # All available styles
 styles = ["Rock", "Metal", "Funk", "Punk", "Indie", "Jazz", "Classical", "Pop", "Bossanova", "Reggae", "Blues", "Bluegrass", "Folk", "Country"]
-# Setting just the first style as speciality
-spec = [true, false, false]
+
+# Creating all styles for the Style Table
+styles.each do |style|
+  style = Style.create(
+    name: style
+  )
+  puts "#{style.name} style created"
+end
+
 
 # Adding in 3 styles per Teacher Profile
 20.times do |i|
 
+  teacher = Teacher.find(i+1)
   3.times do |j|
-    Style.create(
-      name: styles.sample,
-      speciality: spec[j],
-      teacher_id: i+1
-    )
+    num = rand(1..14)
+    temp_style = Style.find(num)
+    teacher.styles << temp_style
+
+    # Setting one style as speciality as default is false
+    teacher.teachers_styles.first.update(speciality: true)
+
   end
   puts "Styles created for Teacher Profile with id: #{i+1}"
 end
