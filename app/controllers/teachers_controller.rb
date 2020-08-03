@@ -20,7 +20,6 @@ class TeachersController < ApplicationController
     # - put speciality into join table
 
     @teachers = Teacher.all
-    raise
     @style = Style.new
    
   end
