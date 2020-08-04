@@ -22,9 +22,33 @@ class TeachersController < ApplicationController
   end
 
   def new
+    @teacher = Teacher.new
+    @styles = Style.all
   end
 
   def create
+
+  Teacher.create(
+    availability: params[:teacher][:availability],
+    price: params[:teacher][:price],
+    lesson_length: params[:teacher][:lesson_length],
+    bio: params[:teacher][:bio],
+    teaching_info: params[:teacher][:teaching_info],
+    user_id: current_user.id
+  )
+
+    speciality = Style.find(params[:teacher][:speciality])
+    speciality.teachers_styles
+    current_user.teacher.styles << speciality
+    current_user.teacher.teachers_styles.first.update(speciality: true)
+
+    params[:teacher][:styles].each do |style|
+      found_style = Style.find(style)
+      current_user.teacher.styles << found_style
+    end
+
+    redirect_to teacher_path(current_user.teacher.id)
+
   end
 
   def edit

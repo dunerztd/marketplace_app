@@ -1,9 +1,12 @@
+<%# Menu View for anyone with an account and is logged-in %>
 <div class="nav-item dropdown pr-sm-5"  >
   <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-  Menu Links
+    <%= current_user.fullname %>
   </a>
   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
     <%= link_to "Student", student_view_path, class: "dropdown-item" %>
+
+        <%# Changes the menu item depending on whether the user has a Teacher Profile %>
         <% if user_signed_in? && current_user.teacher %>
           <%= link_to "Teacher", teacher_view_path, class: "dropdown-item" %>
         <% else %>

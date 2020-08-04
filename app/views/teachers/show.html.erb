@@ -2,8 +2,7 @@
 <div class="row no gutters">
   <%# Profile Photo %>
   <div class="col-sm-4">
-    <img src="..." class="card-img" alt="...">
-    <%# <%= image_tag @teacher.picture if @teacher.picture.attached? %>
+    <%= image_tag @teacher.picture if @teacher.picture.attached? %>
   </div>
 
   <%# All Profile Info %>
@@ -46,4 +45,8 @@
     <h5>Teaching Info:</h5>
     <p><%= @teacher.teaching_info %></p>
   </div>
+</div>
+
+<div>
+  <%= link_to 'Back', teachers_path %>
 </div>

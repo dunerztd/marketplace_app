@@ -1,4 +1,7 @@
+<%# View when user selects 'Student' from drop-down menu %>
 <div>
+
+  <%# Displays current user details %>
   <div>
     <h1><%= current_user.fullname %></h1>
     <h6><%= current_user.email  %></h6>
@@ -9,6 +12,8 @@
       <h2>Paid Lessons</h2>
       <hr>
     </div>
+
+    <%# Displays all Bookings current user has as a Student %>
     <div>
       <% current_user.bookings.each do |booking| %>
         <p>
