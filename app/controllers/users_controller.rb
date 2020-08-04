@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
-  
-  def index
-    @user = current_user
+
+  def student_view
+  end
+
+  def teacher_view
   end
 end

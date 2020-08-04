@@ -6,20 +6,16 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
+  <%# Drop-down menu - Changes depending not logged-in/logged-in/logged-in and has a Teacher Profile %>
   <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 
-      <%# USE for Teacher Menu %>
-      <%# <% if user_signed_in? && current_user.teacher %>
-
-    <% if user_signed_in? %>
-      
     <%# Show navbar items when user is logged-in %>
-    <%= render 'shared/navbar_student' %>
-
-	  <% else %>
+    <% if user_signed_in? %>
+      <%= render 'shared/navbar_logged_in' %>
 
     <%# Show navbar items when user is logged out %>
-    <%= render 'shared/navbar_guest' %>
+	  <% else %>
+     <%= render 'shared/navbar_guest' %>
 
     <% end %>
   </div>

@@ -3,8 +3,12 @@
   Menu Links
   </a>
   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
-    <%= link_to "Student", users_index_path, class: "dropdown-item" %>
-    <a class="dropdown-item" href="#">Become A Teacher</a>
+    <%= link_to "Student", student_view_path, class: "dropdown-item" %>
+        <% if user_signed_in? && current_user.teacher %>
+          <%= link_to "Teacher", teacher_view_path, class: "dropdown-item" %>
+        <% else %>
+          <%= link_to "Become A Teacher", new_teacher_path, class: "dropdown-item" %>
+        <% end %>
     <div class="dropdown-divider"></div>
     <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
   </div>

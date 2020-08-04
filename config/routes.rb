@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
-  get 'users/index'
-  get 'users/show'
-  root to: 'welcome#index'
+  root to: 'teachers#index'
   devise_for :users
   resources :teachers
-  resources :users
-
+  get '/student_view', to: 'users#student_view', as: 'student_view'
+  get '/teacher_view', to: 'users#teacher_view', as: 'teacher_view'
 end
