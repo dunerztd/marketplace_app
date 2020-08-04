@@ -13,24 +13,22 @@
           <% end %> 
         </div>
       </div>
+      
       <div>
         <%= form.label :genres, 'Styles:' %><br>
         <%= form.collection_check_boxes :styles, Style.all, :id, :name, include_hidden: false %>
       </div>
+
       <div>
         <%= form.label :availability, 'Availability:' %><br>
         <%= form.text_field :availability %>
       </div>
 
-
-      <%# data type is: integer %>
       <div>
         <%= form.label :price, 'Price:' %><br>
         <%= form.number_field :price, in: 1..300, step: 1 %>
       </div>
 
-      <%# could make a select box with only values 30 or 60 mins %>
-      <%# data type is: integer %>
       <div>
         <%= form.label :lesson_length, 'Lesson Length:' %><br>
         <%= form.select(:lesson_length, [['30 mins', 1], ['60 mins', 2]]) %>

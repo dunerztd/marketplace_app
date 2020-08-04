@@ -1,4 +1,6 @@
 class TeachersController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+
   def index
     # checks whether params is defined. If so, it runs filtering method. If not, loads all teacher profiles
     if defined? params[:style][:name]
@@ -28,20 +30,22 @@ class TeachersController < ApplicationController
 
   def create
 
-  Teacher.create(
-    availability: params[:teacher][:availability],
-    price: params[:teacher][:price],
-    lesson_length: params[:teacher][:lesson_length],
-    bio: params[:teacher][:bio],
-    teaching_info: params[:teacher][:teaching_info],
-    user_id: current_user.id
-  )
+    # Teacher Profile creation
+    Teacher.create(
+      availability: params[:teacher][:availability],
+      price: params[:teacher][:price],
+      lesson_length: params[:teacher][:lesson_length],
+      bio: params[:teacher][:bio],
+      teaching_info: params[:teacher][:teaching_info],
+      user_id: current_user.id
+    )
 
+    # Adds a style with the speciality marked as true in teachers_styles join table
     speciality = Style.find(params[:teacher][:speciality])
-    speciality.teachers_styles
     current_user.teacher.styles << speciality
     current_user.teacher.teachers_styles.first.update(speciality: true)
 
+    # Adds all other styles
     params[:teacher][:styles].each do |style|
       found_style = Style.find(style)
       current_user.teacher.styles << found_style
@@ -58,5 +62,10 @@ class TeachersController < ApplicationController
   end
 
   def destroy
+  end
+
+  private
+
+  def profile_params
   end
 end
