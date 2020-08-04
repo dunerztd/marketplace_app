@@ -1,0 +1,23 @@
+<div>
+  <div>
+    <h1><%= current_user.fullname %></h1>
+    <h6><%= current_user.email  %></h6>
+  </div>
+  <hr>
+  <div>
+    <div>
+      <h2>Paid Lessons</h2>
+      <hr>
+    </div>
+    <div>
+      <% current_user.bookings.each do |booking| %>
+        <p>
+          <b>Name: </b> <%= booking.teacher.user.fullname %><br>
+          <b>Email: </b> <%= booking.teacher.user.email %><br>
+          <b>Price: </b>$<%= booking.teacher.price %><br>
+          <b>Lesson Length: </b><%= booking.teacher.lesson_length %> mins<br>
+          <hr>
+        </p>
+      <% end %>
+    </div>
+</div>

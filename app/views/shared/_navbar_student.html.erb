@@ -1,3 +1,12 @@
-<div class="navbar-nav">
-  <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "nav-item nav-link mx-3" %>
+<div class="nav-item dropdown pr-sm-5"  >
+  <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+  Menu Links
+  </a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
+    <%= link_to "Student", users_index_path, class: "dropdown-item" %>
+    <a class="dropdown-item" href="#">Become A Teacher</a>
+    <div class="dropdown-divider"></div>
+    <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+  </div>
 </div>
+

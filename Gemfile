@@ -60,3 +60,5 @@ gem "faker", "~> 2.13"
 gem "bootstrap", "~> 4.5"
 
 gem "jquery-rails", "~> 4.4"
+
+gem "aws-sdk-s3", "~> 1.75"
