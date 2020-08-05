@@ -23,11 +23,13 @@ class TeachersController < ApplicationController
     @teacher = Teacher.find(params[:id])
   end
 
+  # Sets up the form for Profile creation
   def new
     @teacher = Teacher.new
     @styles = Style.all
   end
 
+  # Create a new Teacher Profile
   def create
 
     # Teacher Profile creation
@@ -37,7 +39,8 @@ class TeachersController < ApplicationController
       lesson_length: params[:teacher][:lesson_length],
       bio: params[:teacher][:bio],
       teaching_info: params[:teacher][:teaching_info],
-      user_id: current_user.id
+      user_id: current_user.id,
+      picture: params[:teacher][:picture]
     )
 
     # Adds a style with the speciality marked as true in teachers_styles join table

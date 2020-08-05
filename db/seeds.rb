@@ -22,7 +22,6 @@ puts "Deleting all Teacher Profiles"
 User.delete_all
 puts "Deleting all Users"
 
-# s3 = Aws::S3::Resource.new(region: 'ap-southeast-2')
 
 20.times do |i|
 # user data
@@ -35,12 +34,8 @@ puts "Deleting all Users"
   )
   puts "#{user.fullname} User created"
 
-  # Adding images from amazon
-  # obj = s3.bucket('marketplace-app-seeds').object("#{i+1}.jpg")
+  # Adding images from
 
-  # obj.get(response_target: "app/assets/images/marketplace_app/#{i}.jpg")
-
-  # item.image.attach(io: File.open("app/assets/images/marketplace_app/#{i}.jpg"), filename: "#{i}.jpg")
 
 # teacher profile data
   avail = ["Mon: 10am-12pm", "Tues: 5pm-8pm", "Wed: 9am-11am", "Thurs: 7pm-9pm", "Fri: 1pm-5pm"]
@@ -53,7 +48,12 @@ puts "Deleting all Users"
     user_id: user.id
   )
   puts "#{user.fullname} Teacher profile created"
+
+  teacher.picture.attach(io: File.open("app/assets/images/seed_images/#{i+1}.jpg"), filename: "#{i+1}.jpg")
+
 end
+
+
 
 # Bookings table data
 40.times do |i|
