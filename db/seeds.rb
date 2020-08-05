@@ -34,8 +34,6 @@ puts "Deleting all Users"
   )
   puts "#{user.fullname} User created"
 
-  # Adding images from
-
 
 # teacher profile data
   avail = ["Mon: 10am-12pm", "Tues: 5pm-8pm", "Wed: 9am-11am", "Thurs: 7pm-9pm", "Fri: 1pm-5pm"]
@@ -49,6 +47,7 @@ puts "Deleting all Users"
   )
   puts "#{user.fullname} Teacher profile created"
 
+  # Adds an image from app directory to each Profile
   teacher.picture.attach(io: File.open("app/assets/images/seed_images/#{i+1}.jpg"), filename: "#{i+1}.jpg")
 
 end
