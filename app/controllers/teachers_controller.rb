@@ -1,5 +1,5 @@
 class TeachersController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:edit, :update, :destroy]
 
   def index
     # checks whether params is defined. If so, it runs filtering method. If not, loads all teacher profiles
