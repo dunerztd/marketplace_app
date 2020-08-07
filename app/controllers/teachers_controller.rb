@@ -33,31 +33,36 @@ class TeachersController < ApplicationController
   # Create a new Teacher Profile
   def create
 
-    # Teacher Profile creation
-    @teacher = Teacher.new(profile_params)
-    @teacher.user_id = current_user.id
-    @teacher.save
+      # Teacher Profile creation
+      @teacher = Teacher.new(profile_params)
+      @teacher.user_id = current_user.id
+      @teacher.save
 
-    # Adds a style with the speciality marked as true in teachers_styles join table
-    speciality = Style.find(params[:teacher][:speciality])
-    current_user.teacher.styles << speciality
-    current_user.teacher.teachers_styles.first.update(speciality: true)
+    if @teacher.save
 
-    # Adds all other styles
-    if params[:teacher][:styles].present?
-      if params[:teacher][:styles].kind_of?(Array)
-        params[:teacher][:styles].each do |style|
-          found_style = Style.find(style)
+      # Adds a style with the speciality marked as true in teachers_styles join table
+      speciality = Style.find(params[:teacher][:speciality])
+      current_user.teacher.styles << speciality
+      current_user.teacher.teachers_styles.first.update(speciality: true)
+
+      # Adds all other styles
+      if params[:teacher][:styles].present?
+        if params[:teacher][:styles].kind_of?(Array)
+          params[:teacher][:styles].each do |style|
+            found_style = Style.find(style)
+            current_user.teacher.styles << found_style
+          end
+        else
+          found_style = Style.find(params[:teacher][:styles])
           current_user.teacher.styles << found_style
         end
-      else
-        found_style = Style.find(params[:teacher][:styles])
-        current_user.teacher.styles << found_style
       end
+
+      redirect_to teacher_path(current_user.teacher.id)
+
+    else
+      render 'new'
     end
-
-    redirect_to teacher_path(current_user.teacher.id)
-
   end
 
   # Edit a single Teacher Profile
@@ -66,36 +71,39 @@ class TeachersController < ApplicationController
 
   # Updating a Teacher Profile
   def update
-
+  
     # Updates all the attributes in Teacher Table of the Profile
     @teacher.update(profile_params)
     @teacher.save
 
-    # Deletes all associated styles first
-    @teacher.styles.delete_all
+    # Checks if saved correctly. If ok, continues with adding styles. Otherwise redirects to form with validation errors displayed
+    if @teacher.save
 
-    # Add changed speciality style to profile
-      # - if speciality params: exists, delete speciality (teacher_styles.speciality = true) then add new one?
-      # - else do nothing
+    #   # Deletes all associated styles first
+      @teacher.styles.delete_all
 
-    speciality = Style.find(params[:teacher][:speciality])
-    current_user.teacher.styles << speciality
-    current_user.teacher.teachers_styles.first.update(speciality: true)
+      speciality = Style.find(params[:teacher][:speciality])
+      current_user.teacher.styles << speciality
+      current_user.teacher.teachers_styles.first.update(speciality: true)
 
-    # Checks if the params is exists and if there are multiple other styles first, then adds the styles
-    if params[:teacher][:styles].present?
-      if params[:teacher][:styles].kind_of?(Array)
-        params[:teacher][:styles].each do |style|
-          found_style = Style.find(style)
+      # Checks if the params is exists and if there are multiple other styles first, then adds the styles
+      if params[:teacher][:styles].present?
+        if params[:teacher][:styles].kind_of?(Array)
+          params[:teacher][:styles].each do |style|
+            found_style = Style.find(style)
+            current_user.teacher.styles << found_style
+          end
+        else
+          found_style = Style.find(params[:teacher][:styles])
           current_user.teacher.styles << found_style
         end
-      else
-        found_style = Style.find(params[:teacher][:styles])
-        current_user.teacher.styles << found_style
       end
-    end
 
-    redirect_to teacher_path(current_user.teacher.id)
+      redirect_to teacher_path(current_user.teacher.id)
+
+    else
+      render 'edit'
+    end
   end
 
   # Deletes the current users Teacher Profile
