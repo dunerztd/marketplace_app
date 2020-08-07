@@ -3,9 +3,9 @@
   <%# Side Links %>
   <div class="col-sm-3">
     <div>
-      <%= link_to 'Upcoming Teacher Lessons', teacher_view_path %><br>
       <%= link_to 'View Profile', teacher_path(current_user.teacher.id) %><br>
-      <%= link_to 'Edit Profile', edit_teacher_path(current_user.teacher.id) %>
+      <%= link_to 'Edit Profile', edit_teacher_path(current_user.teacher.id) %><br>
+      <%= link_to 'Delete Profile', teacher_path(current_user.teacher.id), method: :delete, data: { confirm: "Are you sure you want to delete your Teacher Profile?" } %>
     </div>
   </div>
   <%# Main Section %>
@@ -20,6 +20,8 @@
         <h2>Upcoming Teacher Lessons</h2>
         <hr>
       </div>
+
+      <%# All guitar lessons User has as a Teacher %>
       <div>
         <% current_user.teacher.bookings.each do |booking| %>
           <p>

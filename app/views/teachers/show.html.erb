@@ -2,7 +2,7 @@
 <div class="row no gutters">
   <%# Profile Photo %>
   <div class="col-sm-4">
-    <%= image_tag @teacher.picture, class: "img-fluid" %>
+    <%= image_tag @teacher.picture, class: "img-fluid" if @teacher.picture.attached? %>
   </div>
 
   <%# All Profile Info %>

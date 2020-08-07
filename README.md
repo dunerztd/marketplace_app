@@ -4,6 +4,9 @@
 
 **Heroku:** http:
 
+Accounts:   
+All accounts emails are the users first name + '@gmail.com' and '111111' as password.
+
 ---
 
 ## Problem

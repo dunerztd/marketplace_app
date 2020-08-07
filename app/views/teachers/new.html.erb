@@ -3,57 +3,6 @@
     <h2>Create Teacher Profile</h2>
   </div>
   <div>
-    <%= form_with model: @teacher, local: true do |form| %>
-      <div>
-        Speciality: 
-        <div>
-          <% Style.all.each do |style| %>
-            <%= form.radio_button :speciality, style.id %>
-            <%= form.label :speciality, style.name %>
-          <% end %> 
-        </div>
-      </div>
-      
-      <div>
-        <%= form.label :genres, 'Styles:' %><br>
-        <%= form.collection_check_boxes :styles, Style.all, :id, :name, include_hidden: false %>
-      </div>
-
-      <div>
-        <%= form.label :availability, 'Availability:' %><br>
-        <%= form.text_field :availability %>
-      </div>
-
-      <div>
-        <%= form.label :price, 'Price:' %><br>
-        <%= form.number_field :price, in: 1..300, step: 1 %>
-      </div>
-
-      <div>
-        <%= form.label :lesson_length, 'Lesson Length:' %><br>
-        <%= form.select(:lesson_length, [['30 mins', 1], ['60 mins', 2]]) %>
-      </div>
-
-      <div>
-        <%= form.label :bio, 'Bio:' %><br>
-        <%= form.text_area :bio %>
-      </div>
-
-      <div>
-        <%= form.label :teaching_info, 'Teaching Info:' %><br>
-        <%= form.text_area :teaching_info %>
-      </div>
-
-      <div>
-        <%= form.label :picture, 'Profile Photo: ' %><br>
-        <%= form.file_field :picture, accept: 'image/png,image/gif,image/jpeg,image/jpg' %>
-    </div>
-
-      <p><div>
-        <%= form.submit %>
-      </div></p>
-  <% end %>
+    <%= render 'form' %>
   </div>
 </div>
-
-

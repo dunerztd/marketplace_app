@@ -1,5 +1,6 @@
 class TeachersController < ApplicationController
-  before_action :authenticate_user!, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :find_profile, only: [:show, :edit, :update, :destroy]
 
   def index
     # checks whether params is defined. If so, it runs filtering method. If not, loads all teacher profiles
@@ -8,6 +9,7 @@ class TeachersController < ApplicationController
     else
       @teachers = Teacher.all
     end
+
     # loads all Styles for filtering form
     @style = Style.new
    
@@ -20,7 +22,6 @@ class TeachersController < ApplicationController
 
   # Show a single profile
   def show
-    @teacher = Teacher.find(params[:id])
   end
 
   # Sets up the form for Profile creation
@@ -33,15 +34,9 @@ class TeachersController < ApplicationController
   def create
 
     # Teacher Profile creation
-    Teacher.create(
-      availability: params[:teacher][:availability],
-      price: params[:teacher][:price],
-      lesson_length: params[:teacher][:lesson_length],
-      bio: params[:teacher][:bio],
-      teaching_info: params[:teacher][:teaching_info],
-      user_id: current_user.id,
-      picture: params[:teacher][:picture]
-    )
+    @teacher = Teacher.new(profile_params)
+    @teacher.user_id = current_user.id
+    @teacher.save
 
     # Adds a style with the speciality marked as true in teachers_styles join table
     speciality = Style.find(params[:teacher][:speciality])
@@ -58,17 +53,54 @@ class TeachersController < ApplicationController
 
   end
 
+  # Edit a single Teacher Profile
   def edit
   end
 
+  # Updating a Teacher Profile
   def update
+    # Updates all the attributes in Teacher Table of the Profile
+    @teacher.update(profile_params)
+    @teacher.save
+
+    # Deletes all associated styles first
+    @teacher.styles.delete_all
+
+    # Add changed speciality style to profile
+      # - if speciality params: exists, delete speciality (teacher_styles.speciality = true) then add new one?
+      # - else do nothing
+
+    speciality = Style.find(params[:teacher][:speciality])
+    current_user.teacher.styles << speciality
+    current_user.teacher.teachers_styles.first.update(speciality: true)
+
+    # Adds all other styles
+    params[:teacher][:styles].each do |style|
+      found_style = Style.find(style)
+      current_user.teacher.styles << found_style
+    end
+
+    redirect_to teacher_path(current_user.teacher.id)
   end
 
   def destroy
+    @teacher.destroy
+
+    redirect_to teachers_path
   end
 
   private
 
-  def profile_params
+  def find_profile
+    @teacher = Teacher.find(params[:id])
   end
+
+  def profile_params
+    params.require(:teacher).permit(:availability, :price, :lesson_length, :bio, :teaching_info, :picture)
+  end
+
+  def styles_params
+    params.require(:teacher).permit(:speciality, :styles)
+  end
+
 end
