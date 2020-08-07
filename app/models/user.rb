@@ -11,7 +11,7 @@ class User < ApplicationRecord
   validates :fullname, presence: true, length: { in: 1...150 }
 
   # Validates email for User sign-up
-  validates :email, presence: true, uniqueness: { case_sensitive: false }, length: { in: 1...75 }
+  validates :email, presence: true, uniqueness: { case_sensitive: true }, length: { in: 1...75 }
 
   # Validates password for user sign-up
   validates :password, confirmation: true, presence: true, length: { in: 1...50 }

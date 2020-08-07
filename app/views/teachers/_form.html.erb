@@ -12,10 +12,10 @@
       </div>
       
       <div>
-        <%= form.label :genres, 'Styles:' %><br>
-        <%= form.collection_check_boxes :styles, Style.all, :id, :name, include_hidden: false do |b| %>
+        <%= form.label :styles, 'Styles:' %><br>
+        <%= form.collection_check_boxes :styles, Style.all, :id, :name, include_hidden: false, acceptance: true do |b| %>
           <div class="form-check form-check-inline">
-            <%= b.check_box class: 'form-check-input' %>
+            <%= b.check_box class: 'form-check-input', acceptance: true %>
             <%= b.label class: 'form-check-label' %>
           </div>
         <% end %>
@@ -33,7 +33,7 @@
 
       <div>
         <%= form.label :lesson_length, 'Lesson Length:' %><br>
-        <%= form.select(:lesson_length, [['30 mins', 1], ['60 mins', 2]]) %>
+        <%= form.select(:lesson_length, [['30 mins'], ['60 mins']]) %>
       </div>
 
       <div>

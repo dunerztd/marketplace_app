@@ -4,8 +4,8 @@ class TeachersController < ApplicationController
 
   def index
     # checks whether params is defined. If so, it runs filtering method. If not, loads all teacher profiles
-    if defined? params[:style][:name]
-      @teachers = filter_teacher_profiles_by_style(params[:style][:name])
+    if defined? params[:teacher][:styles]
+      @teachers = filter_teacher_profiles_by_style(params[:teacher][:styles])
     else
       @teachers = Teacher.all
     end
@@ -44,9 +44,16 @@ class TeachersController < ApplicationController
     current_user.teacher.teachers_styles.first.update(speciality: true)
 
     # Adds all other styles
-    params[:teacher][:styles].each do |style|
-      found_style = Style.find(style)
-      current_user.teacher.styles << found_style
+    if params[:teacher][:styles].present?
+      if params[:teacher][:styles].kind_of?(Array)
+        params[:teacher][:styles].each do |style|
+          found_style = Style.find(style)
+          current_user.teacher.styles << found_style
+        end
+      else
+        found_style = Style.find(params[:teacher][:styles])
+        current_user.teacher.styles << found_style
+      end
     end
 
     redirect_to teacher_path(current_user.teacher.id)
@@ -59,6 +66,7 @@ class TeachersController < ApplicationController
 
   # Updating a Teacher Profile
   def update
+
     # Updates all the attributes in Teacher Table of the Profile
     @teacher.update(profile_params)
     @teacher.save
@@ -74,15 +82,23 @@ class TeachersController < ApplicationController
     current_user.teacher.styles << speciality
     current_user.teacher.teachers_styles.first.update(speciality: true)
 
-    # Adds all other styles
-    params[:teacher][:styles].each do |style|
-      found_style = Style.find(style)
-      current_user.teacher.styles << found_style
+    # Checks if the params is exists and if there are multiple other styles first, then adds the styles
+    if params[:teacher][:styles].present?
+      if params[:teacher][:styles].kind_of?(Array)
+        params[:teacher][:styles].each do |style|
+          found_style = Style.find(style)
+          current_user.teacher.styles << found_style
+        end
+      else
+        found_style = Style.find(params[:teacher][:styles])
+        current_user.teacher.styles << found_style
+      end
     end
 
     redirect_to teacher_path(current_user.teacher.id)
   end
 
+  # Deletes the current users Teacher Profile
   def destroy
     @teacher.destroy
 
@@ -91,6 +107,7 @@ class TeachersController < ApplicationController
 
   private
 
+  # Finds a Teacher Profile
   def find_profile
     @teacher = Teacher.find(params[:id])
   end
