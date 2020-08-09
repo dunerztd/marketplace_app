@@ -64,3 +64,5 @@ gem "jquery-rails", "~> 4.4"
 gem "aws-sdk-s3", "~> 1.75"
 
 gem "jquery-turbolinks", "~> 2.1"
+
+gem "stripe", "~> 5.23"

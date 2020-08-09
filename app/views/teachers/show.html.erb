@@ -30,7 +30,9 @@
     <br>
     <%# Purchase Lesson button: Only to be shown if a user is signed in %>
     <% if user_signed_in? %>
-      <button type="button" class="btn btn-success">Purchase A Lesson</button>
+      <%# <button type="button" class="btn btn-success"></button> %>
+      <%= link_to 'Purchase A Lesson', "", id: "stripe" %>
+
     <% else %>
       <p>(User must have an account and be logged-in to purchase a lesson)</p>
     <% end %>
@@ -50,3 +52,5 @@
 <div>
   <%= link_to 'Back', teachers_path %>
 </div>
+
+<%= javascript_pack_tag "stripe" %>

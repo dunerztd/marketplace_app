@@ -2,7 +2,7 @@
 
 **Github:** https://github.com/dunerztd/marketplace_app
 
-**Heroku:** http:
+**Heroku:** https://marketplaceapp-guitar.herokuapp.com/
 
 Accounts:   
 All accounts emails are the users first name + '@gmail.com' and '111111' as password.

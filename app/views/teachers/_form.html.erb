@@ -3,7 +3,7 @@
   <% if @teacher.errors.any? %>
     <ul>
       <% @teacher.errors.full_messages.each do |error| %>
-        <li>*<%= error %></li>
+        <li class="alert-danger error-flash">*<%= error %></li>
       <% end %>
     </ul>
   <% end %>

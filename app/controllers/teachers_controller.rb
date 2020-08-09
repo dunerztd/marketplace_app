@@ -58,6 +58,8 @@ class TeachersController < ApplicationController
         end
       end
 
+      flash[:notice] = "Teacher profile created successfully"
+
       redirect_to teacher_path(current_user.teacher.id)
 
     else
@@ -98,6 +100,8 @@ class TeachersController < ApplicationController
           current_user.teacher.styles << found_style
         end
       end
+
+      flash[:notice] = "Teacher profile edited successfully"
 
       redirect_to teacher_path(current_user.teacher.id)
 
