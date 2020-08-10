@@ -49,7 +49,7 @@ The target audience for this marketplace is students wanting to learn the guitar
 - **Database:** Postgresql
 - **Deployment:** Heroku
 - **Storage:** AWS S3
-- **Utilities:** Stripe, Devise, Cancancan
+- **Utilities:** Stripe, Devise, Ultrahook
 
 ---
 
@@ -161,6 +161,12 @@ Full Size  |  Mobile
 ---------  |  --------
 ![](./docs/wireframes/Teacher_profile_form.png) | ![](./docs/wireframes/Teacher_profile_form_mobile.png)
 
+### Teacher Profile Edit Form
+
+Full Size  |  Mobile
+---------  |  --------
+![](./docs/wireframes/teacher_edit_profile_form.png) | ![](./docs/wireframes/teacher_edit_profile_form_mobile.png)
+
 ---
 
 ## ERD
@@ -211,14 +217,15 @@ in addition to what a student can do, a teacher can also do the following:
 - has_one Teacher, a Teacher belongs_to a User
 - has_many Bookings, a Booking belongs_to a User
 
-In addition to these associations, a User can have one Teacher who can have many Styles, many Bookings and one Image.
-Through Users association with Booking, Users can have many Bookings who can have a Teacher who has many Styles and one Image.
+In addition to these associations, a User can have one Teacher who can have many Styles, many Bookings and one Picture.
+Through User association with Booking, Users can have many Bookings who can have a Teacher who has many Styles and one Image.
 
 #### Teacher:
-- belongs_to User, a User has_one Teacher
+- belongs_to a User, a User has_one Teacher
 - has_many Bookings, a Booking belongs_to a Teacher
-- has_many Styles, a Style belongs_to a Teacher
-- has_one_attached image
+- has_many Teachers_Style, Teachers_Style belongs_to Teacher
+- has_many Styles through Teachers_Style, Styles has_many Teachers through Teachers_Style
+- has_one_attached Picture
 
 In addition to these associations, A Teacher has one User who has many Bookings and a Teacher has many Bookings who has one User.
 
@@ -229,9 +236,16 @@ In addition to these associations, A Teacher has one User who has many Bookings 
 The Booking associations of being between the User and Teacher models is an important one to the app. It allows a single user account to be both a Teacher and Student. Through Bookings we can find out information on the student through the User association. But also through the Teacher association, we can find information on the User associated with the teacher profile.
 
 #### Style:
-- belongs_to a Teacher, a Teacher has_many Styles
+- has_many Teachers_Styles, Teachers_Style belongs_to Teacher
+- has_many Teachers through Teachers_style, a Style has_many Teachers through Teachers_Style
 
-Through the Style models association with the Teacher model, a Style can have one Teacher who has one User and a Style can have one Teacher who has many Bookings who has one User. A Style can have one Teacher who has one Image.
+Through the Style models association with the Teacher model, a Style can have many Teachers who has one User and a Style can have many Teachers who has many Bookings who has one User. A Style can have many Teachers who has one Picture.
+
+#### Teachers_Style:
+- belongs_to a Teacher, a Teacher has_many Teachers_Styles
+- belongs_to a Style, a Style has_many Teachers_Styles
+
+Acts as join model between the Teacher and Style models to allow a many-to-many relationship.
 
 ---
 
@@ -247,8 +261,10 @@ The Bookings table contains the attributes id, teacher_id and user_id as seen in
 The teachers table contains the attributes id, availability, price, lesson_length, bio, teaching_info, style_id, user_id as seen in the ERD. Style_id and user_id are foreign keys of the the Style and User tables respectively. Even though its a one-to-one relationship between the User and Teacher tables, Teacher belongs_to User in reality. The remaining attributes are used in the creation of a teacher profile.
 
 #### Styles:
-The Styles table contains the attributes id, name, speciality and teacher_id as seen in the ERD. All the music styles are listed by 'name'. The 'speciality' boolean attribute marks one style per profile 'true' which helps with filtering profiles by speciality. This helps with normalisation as a separate table purely for speciality styles is not needed. Teacher_id is the foreign key for the one-to-many relationship with the Teacher table.
+The Styles table contains the attributes id, name and teacher_id as seen in the ERD. All the music styles are listed by 'name'. Teacher_id is the foreign key for the one-to-many relationship with the Teacher table.
 
+#### Teachers_Styles:
+The Teachers_Styles table contains the attributes id, teacher_id, style_id and speciality as seen in the ERD. Teacher_id and style_id are foreign keys of the Teacher and Style Tables as Teachers_Styles is a join table for the many-to-many relationship between the two. The 'speciality' boolean attribute marks one style per profile 'true' which helps with filtering profiles by speciality. This helps with normalisation as a separate table purely for speciality styles is not needed.
 
 #### Active_storage_attachments and Active_storage_blobs:
 All the attributes of these two tables are for adding an image to the teacher profile and are automatically generated my Active Storage.
@@ -257,7 +273,60 @@ All the attributes of these two tables are for adding an image to the teacher pr
 
 ## Database Schema
 
+**Active Storage Attachments**
+- name: string, null: false
+- record_type: string, null: false
+- record_id: bigint, null: false
+- blob_id: bigint, null: false
+- created_at: datetime, null: false
 
+**Active Storage Blobs**
+- key: string, null: false
+- filename: string, null: false
+- content_type: string
+- metadata: text
+- byte_size: bigint, null: false
+- checksum: string, null: false
+- created_at: datetime, null: false
+
+**Bookings**
+- user_id: bigint, null: false
+- teacher_id: bigint, null: false
+- created_at: datetime, null: false
+- updated_at: datetime, null: false
+
+**Styles**
+- name: string
+- created_at: datetime, null: false
+- updated_at: datetime, null: false
+
+**Teachers**
+- availability: text
+- price: integer
+- lesson_length: integer
+- bio: text
+- teaching_info: text
+- user_id: bigint, null: false
+- created_at: datetime, null: false
+- updated_at: datetime, null: false
+
+**Teachers Styles**
+- teacher_id: bigint, null: false
+- style_id: bigint, null: false
+- created_at: datetime, null: false
+- updated_at: datetime, null: false
+- speciality: boolean, default: false
+
+**Users**
+- email: string, default: "", null: false
+- encrypted_password: string, default: "", null: false
+- reset_password_token: string
+- reset_password_sent_at: datetime
+- remember_created_at: datetime
+- created_at: datetime, null: false
+- updated_at: datetime, null: false
+- fullname: string
+- admin: boolean, default: false
 
 ---
 
@@ -267,11 +336,11 @@ All the attributes of these two tables are for adding an image to the teacher pr
 
 **jQuery-rails:** Javascript library used by Bootstrap.
 
+**jQuery-turbolinks:** Javascript library used by Bootstrap.
+
 **PopperJS:** Javascript library positioning engine used by Bootstrap. Will be used for the drop-down menu.
 
 **Devise:** A rails gem for user authentication. Creates a simple solution for users to sign-up and login with an email address and encrypted password.
-
-**Cancancan:** A rails gem for authorisation which controls what resources users have access to.
 
 **Stripe:** Payment processing software for online payments.
 
@@ -280,3 +349,5 @@ All the attributes of these two tables are for adding an image to the teacher pr
 **AWS S3:** Provides cloud data storage. Used in conjunction with Active Storage to upload images for teacher profiles.
 
 **Faker:** Generates fake data for populating databases and aids in application development.
+
+**Ultrahook:** A webhook API which can be used in development on a local host. Used in conjunction with Stripe to receive real-time information back to the app.

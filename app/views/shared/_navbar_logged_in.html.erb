@@ -4,6 +4,7 @@
     <%= current_user.fullname %>
   </a>
   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
+    <%= link_to "Home", teachers_path, class: "dropdown-item" %>
     <%= link_to "Student", student_view_path, class: "dropdown-item" %>
 
         <%# Changes the menu item depending on whether the user has a Teacher Profile %>

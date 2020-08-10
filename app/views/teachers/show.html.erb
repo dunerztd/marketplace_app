@@ -32,8 +32,8 @@
     <% if user_signed_in? %>
 
       <%# Link to Stripe for payment %>
-      <%# <button type="button" class="btn btn-success"></button> %>
-      <%= link_to 'Purchase A Lesson', "", id: "stripe" %>
+      <button type="button" class="btn btn-success"><%= link_to 'Purchase A Lesson', "", id: "stripe" %></button>
+      
 
     <% else %>
       <p>(User must have an account and be logged-in to purchase a lesson)</p>
