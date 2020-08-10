@@ -14,13 +14,15 @@
   <div>
     Speciality: 
       <div>
+        <%# Displays all styles as radio buttons. Only one speciality style can be selected per Teacher Profile %>
         <% Style.all.each do |style| %>
           <%= form.radio_button :speciality, style.id, required: true %>
           <%= form.label :speciality, style.name %>
         <% end %> 
       </div>
   </div>
-      
+  
+  <%# Displays all styles as checkboxes. User can select as many 'other styles' as they want %>
   <div>
     <%= form.label :styles, 'Styles:' %><br>
     <%= form.collection_check_boxes :styles, Style.all, :id, :name, include_hidden: false, acceptance: true do |b| %>

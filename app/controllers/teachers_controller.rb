@@ -10,7 +10,7 @@ class TeachersController < ApplicationController
       @teachers = Teacher.all
     end
 
-    # loads all Styles for filtering form
+    # Loads all Styles for filtering form
     @style = Style.new
    
   end
@@ -24,7 +24,7 @@ class TeachersController < ApplicationController
   def show
   end
 
-  # Sets up the form for Profile creation
+  # Sets up the form for Profile creation. A new teacher object is created and all styles loaded into the instance variable.
   def new
     @teacher = Teacher.new
     @styles = Style.all
@@ -41,22 +41,10 @@ class TeachersController < ApplicationController
     if @teacher.save
 
       # Adds a style with the speciality marked as true in teachers_styles join table
-      speciality = Style.find(params[:teacher][:speciality])
-      current_user.teacher.styles << speciality
-      current_user.teacher.teachers_styles.first.update(speciality: true)
+      add_speciality_style(params[:teacher][:speciality])
 
-      # Adds all other styles
-      if params[:teacher][:styles].present?
-        if params[:teacher][:styles].kind_of?(Array)
-          params[:teacher][:styles].each do |style|
-            found_style = Style.find(style)
-            current_user.teacher.styles << found_style
-          end
-        else
-          found_style = Style.find(params[:teacher][:styles])
-          current_user.teacher.styles << found_style
-        end
-      end
+      # Adds all other styles to the profile
+      add_other_styles(params[:teacher][:styles])
 
       flash[:notice] = "Teacher profile created successfully"
 
@@ -64,6 +52,28 @@ class TeachersController < ApplicationController
 
     else
       render 'new'
+    end
+  end
+
+  # used for adding the speciality style to the Teachers Profile. Searches then adds the style. Changes the speciality attribute in the Teachers_style join table to 'true'.
+  def add_speciality_style(style)
+    speciality = Style.find(style)
+    current_user.teacher.styles << speciality
+    current_user.teacher.teachers_styles.first.update(speciality: true)
+  end
+
+  # Checks whether a a checkbox is ticket first. If so it searches and adds each style to the Teacher Profile. If no checkboxes are ticked, 'other styles' is left blank.
+  def add_other_styles(styles)
+    if styles.present?
+      if styles.kind_of?(Array)
+        styles.each do |style|
+          found_style = Style.find(style)
+          current_user.teacher.styles << found_style
+        end
+      else
+        found_style = Style.find(styles)
+        current_user.teacher.styles << found_style
+      end
     end
   end
 
@@ -81,25 +91,14 @@ class TeachersController < ApplicationController
     # Checks if saved correctly. If ok, continues with adding styles. Otherwise redirects to form with validation errors displayed
     if @teacher.save
 
-    #   # Deletes all associated styles first
+      # Deletes all associated styles first
       @teacher.styles.delete_all
 
-      speciality = Style.find(params[:teacher][:speciality])
-      current_user.teacher.styles << speciality
-      current_user.teacher.teachers_styles.first.update(speciality: true)
+      # Adds the speciality style to the teacher profile
+      add_speciality_style(params[:teacher][:speciality])
 
       # Checks if the params is exists and if there are multiple other styles first, then adds the styles
-      if params[:teacher][:styles].present?
-        if params[:teacher][:styles].kind_of?(Array)
-          params[:teacher][:styles].each do |style|
-            found_style = Style.find(style)
-            current_user.teacher.styles << found_style
-          end
-        else
-          found_style = Style.find(params[:teacher][:styles])
-          current_user.teacher.styles << found_style
-        end
-      end
+      add_other_styles(params[:teacher][:styles])
 
       flash[:notice] = "Teacher profile edited successfully"
 
@@ -110,7 +109,7 @@ class TeachersController < ApplicationController
     end
   end
 
-  # Deletes the current users Teacher Profile
+  # Deletes the current users' Teacher Profile
   def destroy
     @teacher.destroy
 

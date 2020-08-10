@@ -1,6 +1,7 @@
 class PaymentsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:webhooks]
 
+  # Creates a session for a Stripe Payment
   def get_stripe_id
     @teacher = Teacher.find(params[:id])
     session_id = Stripe::Checkout::Session.create(
@@ -24,12 +25,14 @@ class PaymentsController < ApplicationController
     render :json => {id: session_id, stripe_public_key: Rails.application.credentials.dig(:stripe, :public_key)}
   end
 
+  # Lets the user know the payment was successful and redirects to their Student view
   def success
     flash[:notice] = "Payment made successfully"
 
     redirect_to student_view_path
   end
 
+  # Receives information from the webhook
   def webhooks
     payment_id = params[:data][:object][:payment_intent]
     payment = Stripe::PaymentIntent.retrieve(payment_id)
@@ -38,6 +41,7 @@ class PaymentsController < ApplicationController
 
     head 200
 
+    # Creates a booking based on the webhook information. The booking will then show up in the respective views of the teacher and student
     Booking.create(
       user_id: user_id,
       teacher_id: teacher_id

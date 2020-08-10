@@ -178,12 +178,6 @@ Full Size  |  Mobile
 ## High Level Components
 (Precisely explains and shows understanding of the different high-level components of the app)
 
-#### Guest
-
-
-- can look at individual profiles
-- doesn't have a an account
-- can't purchase a lesson
 
 #### Student
 

@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# Deleting all data in all databases
+# Deleting all data in all tables
 TeachersStyle.delete_all
 puts "Deleting Teachers Styles join table"
 
@@ -51,8 +51,6 @@ puts "Deleting all Users"
   teacher.picture.attach(io: File.open("app/assets/images/seed_images/#{i+1}.jpg"), filename: "#{i+1}.jpg")
 
 end
-
-
 
 # Bookings table data
 40.times do |i|

@@ -3,6 +3,7 @@
   <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
     <%= current_user.fullname %>
   </a>
+  <%# Main drop-down menu %>
   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
     <%= link_to "Home", teachers_path, class: "dropdown-item" %>
     <%= link_to "Student", student_view_path, class: "dropdown-item" %>
