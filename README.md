@@ -4,7 +4,7 @@
 
 **Heroku:** https://marketplaceapp-guitar.herokuapp.com/
 
-Accounts:   
+**Accounts:**
 All accounts emails are the users first name + '@gmail.com' and '111111' as password.
 
 ---
@@ -94,6 +94,8 @@ I'll be using Trello to plan and track all my tasks. All tasks will be split up 
 - Finish all documentation (as much as possible) before start coding.
 - This will leave roughly two weeks to complete the coding.
 - Minimum Viable Product with minimal front-end is the coding aim. If time permits add extra functionality and/or improve front-end.
+
+#### Trello Screenshots
 
 ---
 
