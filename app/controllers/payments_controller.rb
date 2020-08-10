@@ -1,4 +1,5 @@
 class PaymentsController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:webhooks]
 
   def get_stripe_id
     @teacher = Teacher.find(params[:id])
