@@ -1,4 +1,5 @@
 class PaymentsController < ApplicationController
+ skip_before_action :verify_authenticity_token, only: [:webhooks]
 
   def get_stripe_id
     @teacher = Teacher.find(params[:id])
@@ -7,7 +8,6 @@ class PaymentsController < ApplicationController
       customer_email: current_user.email,
       line_items: [{
         name: @teacher.user.fullname,
-        description: @teacher.bio,
         amount: @teacher.price * 100,
         currency: 'aud',
         quantity: 1,
@@ -24,4 +24,24 @@ class PaymentsController < ApplicationController
     render :json => {id: session_id, stripe_public_key: Rails.application.credentials.dig(:stripe, :public_key)}
   end
 
+  def success
+    flash[:notice] = "Payment made successfully"
+
+    redirect_to student_view_path
+  end
+
+  def webhooks
+    payment_id = params[:data][:object][:payment_intent]
+    payment = Stripe::PaymentIntent.retrieve(payment_id)
+    teacher_id = payment.metadata.teacher_id
+    user_id = payment.metadata.user_id
+
+    head 200
+
+    Booking.create(
+      user_id: user_id,
+      teacher_id: teacher_id
+    )
+
+  end
 end

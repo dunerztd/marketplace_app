@@ -30,6 +30,8 @@
     <br>
     <%# Purchase Lesson button: Only to be shown if a user is signed in %>
     <% if user_signed_in? %>
+
+      <%# Link to Stripe for payment %>
       <%# <button type="button" class="btn btn-success"></button> %>
       <%= link_to 'Purchase A Lesson', "", id: "stripe" %>
 
