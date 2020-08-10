@@ -204,7 +204,8 @@ in addition to what a student can do, a teacher can also do the following:
 
 #### Booking
 
-- a booking is made when a student purchases a lesson from a teacher profile.
+
+booking is made when a student purchases a lesson from a teacher profile.
 - the user pays through the online payment system Stripe.
 - The booking shows up in the both student and teacher views. The views contain basic booking information about the respective parties.
 - must be logged in

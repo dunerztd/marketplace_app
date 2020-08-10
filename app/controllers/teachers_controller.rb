@@ -4,8 +4,8 @@ class TeachersController < ApplicationController
 
   def index
     # checks whether params is defined. If so, it runs filtering method. If not, loads all teacher profiles
-    if defined? params[:teacher][:styles]
-      @teachers = filter_teacher_profiles_by_style(params[:teacher][:styles])
+    if defined? params[:style][:name]
+      @teachers = filter_teacher_profiles_by_style(params[:style][:name])
     else
       @teachers = Teacher.all
     end
