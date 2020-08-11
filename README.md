@@ -197,8 +197,6 @@ Full Size  |  Mobile
 ---
 
 ## High Level Components
-(Precisely explains and shows understanding of the different high-level components of the app)
-
 
 #### Student
 
