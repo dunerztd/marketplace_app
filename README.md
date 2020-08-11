@@ -36,6 +36,20 @@ The purpose of this marketplace is to connect guitar teachers with students look
 
 ### Screenshots
 
+![](./docs/app_screenshots/scrn_sht_home_page.jpg)
+![](./docs/app_screenshots/scrn_sht_show_page_not_loggedin.jpg)
+![](./docs/app_screenshots/scrn_sht_signup.jpg)
+![](./docs/app_screenshots/scrn_sht_login.png)
+![](./docs/app_screenshots/scrn_sht_user_signedin.jpg)
+![](./docs/app_screenshots/scrn_sht_show_page_loggedin.jpg)
+![](./docs/app_screenshots/scrn_sht_stripe.jpg)
+![](./docs/app_screenshots/scrn_sht_student_view.jpg)
+![](./docs/app_screenshots/scrn_sht_create_profile.jpg)
+![](./docs/app_screenshots/scrn_sht_teacher_profile_created_show.jpg)
+![](./docs/app_screenshots/scrn_sht_teacher_menu.jpg)
+![](./docs/app_screenshots/scrn_sht_teacher_view.jpg)
+![](./docs/app_screenshots/scrn_sht_delete_profile.jpg)
+![](./docs/app_screenshots/scrn_sht_profile_edit.jpg)
 
 
 ### Target Audience
@@ -96,6 +110,11 @@ I'll be using Trello to plan and track all my tasks. All tasks will be split up 
 - Minimum Viable Product with minimal front-end is the coding aim. If time permits add extra functionality and/or improve front-end.
 
 #### Trello Screenshots
+
+![](./docs/trello/scrn_sht_trello_1.jpg)
+![](./docs/trello/scrn_sht_trello_2.jpg)
+![](./docs/trello/scrn_sht_trello_3.jpg)
+![](./docs/trello/scrn_sht_trello_4.jpg)
 
 ---
 
