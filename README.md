@@ -183,28 +183,15 @@ Full Size  |  Mobile
 
 #### Student
 
-in addition to what a guest can do a student can do the following:
-- must sign up for an account and login.
-- is able to make purchases by clicking the 'purchase a lesson' button on a profile show page.
-- has a student view, selected from the drop-down menu. The student can view all the lesson they have paid for
-- has the ability to be a teacher with the same account by selecting 'become a teacher' from the drop down menu.
+In regards to a two sided marketplace, the student in this case is the buyer. To become a student, a user must sign up for an account with an email and password. All teacher profiles are listed on the home page and can be filtered according to style or styles using the form on the left hand side. Clicking on a profile shows the expanded teacher profile. The green 'purchase a lesson' button is how a student buys a lesson block and it's either 30 or 60 mins long. Lesson appointment times are to be worked out separately by the two parties. The student is taken to the Stripe checkout page and they enter their payments details and once its processed, a booking is made. All paid for lessons are viewable by clicking 'Student' from the main drop-down menu.
 
 #### Teacher
 
-in addition to what a student can do, a teacher can also do the following:
-- create a teacher profile which includes selecting their teaching styles and style speciality. they can also add a profile image.
-- has access to a 'teacher' page which displays upcoming teaching lessons and links to view and edit their profile.
-- can search profiles my filtering them according style. achieve my clicking a range tick boxes. it lists all teacher profiles
-- these profile can be filtered further by clicking 'speciality only' at the top of the home page. it only lists profiles, by style, a teacher has selected as their speciality, being the style they the most experienced and knowledgeable in.
-
+The teacher is this two side marketplace is the seller. Using the same account as the student, clicking 'Become a Teacher' from the drop-down opens up a form to create a teacher profile. To complete the form, the user must fill out the whole form with information such as music styles, availability, price, lesson length, biography, teaching information and providing a profile photo. By selecting 'Teacher' from the main menu, this profile can be viewed, edited and deleted. All upcoming teacher lessons are listed in this view also.
 
 #### Booking
 
-
-booking is made when a student purchases a lesson from a teacher profile.
-- the user pays through the online payment system Stripe.
-- The booking shows up in the both student and teacher views. The views contain basic booking information about the respective parties.
-- must be logged in
+A booking in this marketplace allows for a transaction between the student buyer and the teacher seller. Once a student commits to a purchase through Stripe, these real time details are sent back to the server through webhooks. A booking is created with information of both parties which allows access to both the student and teachers user details. Each others details of the booking show up their respective teacher and student views with information such as full name, email, lesson length and price. This allows the student and teacher to contact each other and set up a time for the guitar lesson.
 
 ---
 
